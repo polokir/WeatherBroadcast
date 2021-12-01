@@ -1,0 +1,33 @@
+﻿<Window x:Class="WeatherBroadcast.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WeatherBroadcast"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="0,0,0,-103">
+        <StackPanel Orientation="Vertical" Background="LightGray">
+            <Label Content="Weather API Application" HorizontalContentAlignment="Center" FontSize="40" Background="Black" Foreground="White"  FontWeight="Bold" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="200"/>
+                    <ColumnDefinition Width="600"/>
+                </Grid.ColumnDefinitions>
+                <Label x:Name="currentTime" Content="Current Time"/>
+            </Grid>
+            <Label Content="Enter City" HorizontalContentAlignment="Center" FontSize="20"/>
+            <TextBox Padding="2" x:Name="txtCityInput" HorizontalContentAlignment="Center" Width="150" Height="20"/>
+            <Button Content="Get Weather" x:Name="btnGetWeather" Click="btnGetWeather_Click" HorizontalContentAlignment="Center" Width="150" Margin="0 10 0 0" FontSize="16" Foreground="White" Background="Black"/>
+
+            <!--WEATHER RESULTS-->
+            <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
+                <!--<Image x:Name="imgWeatherIcon" Height="100" Width="100" HorizontalAlignment="Left"/>-->
+                <Label x:Name="lblWeatherTemp" Content="Weather Temp." HorizontalAlignment="Center" FontSize="40"/>
+                <Label x:Name="lblWeatherWinds" Content="Weather Winds" HorizontalAlignment="Center" FontSize="25"/>
+                <Label x:Name="lblWeatherHumidity" Content="Weather Humidity" HorizontalAlignment="Center" FontSize="25"/>
+                <Label x:Name="lblWeatherDescription" Content="Weather Description" HorizontalAlignment="Center" FontSize="25"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
