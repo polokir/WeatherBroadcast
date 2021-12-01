@@ -10,6 +10,8 @@ namespace WeatherBroadcast
     {
         public EnviromentalInfo Main { get; set; }
         public Wind wind { get; set; }
-        public Weather weather { get; set; }
+        public List<Weather> weather { get; set; }
+
+
     }
 }

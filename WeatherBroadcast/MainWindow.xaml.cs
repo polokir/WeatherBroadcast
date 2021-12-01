@@ -34,7 +34,7 @@ namespace WeatherBroadcast
         {
             try
             {
-                string url = "http://api.openweathermap.org/data/2.5/forecast?q=" + txtCityInput.Text.ToString() + "&units=metric&appid=91e0ded32069e0effc0008a6f4a4a6fe";
+                string url = "http://api.openweathermap.org/data/2.5/forecast?q=" + txtCityInput.Text.ToString() + "&units=metric&appid="+API;
                 HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
                 HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 string response;
@@ -43,10 +43,11 @@ namespace WeatherBroadcast
                     response = streamReader.ReadToEnd();
                 }
                 WeatherResponse weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
+
                 lblWeatherTemp.Content = "Avarage temp: " + weatherResponse.list[0].Main.temp.ToString() + "°";
                 lblWeatherHumidity.Content = "Humidity: " + weatherResponse.list[0].Main.humidity.ToString() + "%";
-/*              lblWeatherDescription.Content = weatherResponse.list[0].weather.description.ToString();
-*/              lblWeatherWinds.Content = "Wind Speed: " + weatherResponse.list[0].wind.speed.ToString() + "m/s";
+                lblWeatherDescription.Content = weatherResponse.list[0].weather[0].description.ToString();
+                lblWeatherWinds.Content = "Wind Speed: " + weatherResponse.list[0].wind.speed.ToString() + "m/s";
             }
 
             catch (Exception e)

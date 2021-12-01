@@ -10,5 +10,6 @@ namespace WeatherBroadcast
     class WeatherResponse
     {
         public List<MainForm> list { get; set; }
+        public List<Weather> weather { get; set; }
     }
 }

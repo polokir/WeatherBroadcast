@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "edsu7vZGoWDMk33gn8GKjDWQN86Yv9JS1zMbW44dVtoN8THmYude3moKeTRh/jmwymD0risldiTaXQimVKaSQg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lolak\\source\\repos\\WeatherBroadcast\\WeatherBroadcast\\WeatherBroadcast.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lolak\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

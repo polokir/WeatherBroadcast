@@ -9,6 +9,5 @@ namespace WeatherBroadcast
     class Weather
     {
         public string description { get; set; }
-
     }
 }
