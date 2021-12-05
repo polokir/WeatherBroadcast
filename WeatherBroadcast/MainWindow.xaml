@@ -11,10 +11,20 @@
             <Label Content="Weather API Application" HorizontalContentAlignment="Center" FontSize="40" Background="Black" Foreground="White"  FontWeight="Bold" />
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="200"/>
-                    <ColumnDefinition Width="600"/>
                 </Grid.ColumnDefinitions>
-                <Label x:Name="currentTime" Content="Current Time"/>
+                <TextBlock x:Name="currentTime" Text="Current Time" FontSize="20">
+                    <TextBlock.Triggers>
+                        <EventTrigger RoutedEvent="TextBlock.Loaded">
+                            <EventTrigger.Actions>
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetProperty="(Canvas.Right)" From="1600" To="-800" Duration="0:0:15" RepeatBehavior="Forever"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger.Actions>
+                        </EventTrigger>
+                    </TextBlock.Triggers>
+                </TextBlock>
             </Grid>
             <Label Content="Enter City" HorizontalContentAlignment="Center" FontSize="20"/>
             <TextBox Padding="2" x:Name="txtCityInput" HorizontalContentAlignment="Center" Width="150" Height="20"/>
@@ -22,11 +32,18 @@
 
             <!--WEATHER RESULTS-->
             <StackPanel Orientation="Vertical" HorizontalAlignment="Center">
-                <!--<Image x:Name="imgWeatherIcon" Height="100" Width="100" HorizontalAlignment="Left"/>-->
                 <Label x:Name="lblWeatherTemp" Content="Weather Temp." HorizontalAlignment="Center" FontSize="40"/>
                 <Label x:Name="lblWeatherWinds" Content="Weather Winds" HorizontalAlignment="Center" FontSize="25"/>
                 <Label x:Name="lblWeatherHumidity" Content="Weather Humidity" HorizontalAlignment="Center" FontSize="25"/>
                 <Label x:Name="lblWeatherDescription" Content="Weather Description" HorizontalAlignment="Center" FontSize="25"/>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button x:Name="SelectorPlus" Content="+" Grid.Column="1" Click="SelectorPlus_Click"/>
+                    <Button x:Name="SelectorMinus" Content="-"  Grid.Column="0"  Click="SelectorMinus_Click"/>
+                </Grid>
             </StackPanel>
         </StackPanel>
     </Grid>
