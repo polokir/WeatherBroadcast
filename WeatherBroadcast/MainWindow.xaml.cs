@@ -23,8 +23,8 @@ namespace WeatherBroadcast
     public partial class MainWindow : Window
     {
         private const string API = "91e0ded32069e0effc0008a6f4a4a6fe";
-        private int selector=0;
-        public string response;
+        private int selector;
+        private string response;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,10 +35,10 @@ namespace WeatherBroadcast
 
             try
             {
-                string url = "http://api.openweathermap.org/data/2.5/forecast?q=" + txtCityInput.Text.ToString() + "&units=metric&appid=" + API;
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);
-                HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-                using (StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))
+                string url = "http://api.openweathermap.org/data/2.5/forecast?q=" + txtCityInput.Text.ToString() + "&units=metric&appid=" + API;//створенння API запиту
+                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);//створенння API запиту
+                HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();// cтворення відповіді    
+                using (StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))//зчитування відповіді
                 {
                     response = streamReader.ReadToEnd();
                 }
@@ -48,7 +48,7 @@ namespace WeatherBroadcast
                 lblWeatherHumidity.Content = "Humidity: " + weatherResponse.list[selector].Main.humidity.ToString() + "%";
                 lblWeatherDescription.Content = weatherResponse.list[selector].weather[0].description.ToString();
                 lblWeatherWinds.Content = "Wind Speed: " + weatherResponse.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponse.list[selector].dt_txt.ToString("F");
+                currentTime.Text = weatherResponse.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
 
             }
             catch
@@ -58,7 +58,8 @@ namespace WeatherBroadcast
         }
             private void btnGetWeather_Click(object sender, RoutedEventArgs e)
             {
-                GetWeather();
+            selector = 0;
+            GetWeather();
             }
         
         private void SelectorPlus_Click(object sender, RoutedEventArgs e)
@@ -71,7 +72,7 @@ namespace WeatherBroadcast
                 lblWeatherHumidity.Content = "Humidity: " + weatherResponseSelectorsPlus.list[selector].Main.humidity.ToString() + "%";
                 lblWeatherDescription.Content = weatherResponseSelectorsPlus.list[selector].weather[0].description.ToString();
                 lblWeatherWinds.Content = "Wind Speed: " + weatherResponseSelectorsPlus.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponseSelectorsPlus.list[selector].dt_txt.ToString("F");
+                currentTime.Text = weatherResponseSelectorsPlus.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
             }
             catch 
             {
@@ -89,7 +90,7 @@ namespace WeatherBroadcast
                 lblWeatherHumidity.Content = "Humidity: " + weatherResponseSelectorsMinus.list[selector].Main.humidity.ToString() + "%";
                 lblWeatherDescription.Content = weatherResponseSelectorsMinus.list[selector].weather[0].description.ToString();
                 lblWeatherWinds.Content = "Wind Speed: " + weatherResponseSelectorsMinus.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponseSelectorsMinus.list[selector].dt_txt.ToString("F");
+                currentTime.Text = weatherResponseSelectorsMinus.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
             }
             catch
             {

@@ -41,8 +41,8 @@
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
-                    <Button x:Name="SelectorPlus" Content="+" Grid.Column="1" Click="SelectorPlus_Click"/>
-                    <Button x:Name="SelectorMinus" Content="-"  Grid.Column="0"  Click="SelectorMinus_Click"/>
+                    <Button x:Name="SelectorPlus" Content="→" Grid.Column="1" Click="SelectorPlus_Click"/>
+                    <Button x:Name="SelectorMinus" Content="←"  Grid.Column="0"  Click="SelectorMinus_Click"/>
                 </Grid>
             </StackPanel>
         </StackPanel>
