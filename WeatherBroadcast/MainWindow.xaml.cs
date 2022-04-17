@@ -22,80 +22,45 @@ namespace WeatherBroadcast
    
     public partial class MainWindow : Window
     {
-        private const string API = "91e0ded32069e0effc0008a6f4a4a6fe";
         private int selector;
-        private string response;
+        WeatherForecast weatherForecast = new WeatherForecast();
+
         public MainWindow()
         {
             InitializeComponent();
 
         }
-        void GetWeather()
+
+        private void OutputContent(WeatherForecast forecast)
         {
-
-            try
-            {
-                string url = "http://api.openweathermap.org/data/2.5/forecast?q=" + txtCityInput.Text.ToString() + "&units=metric&appid=" + API;//створенння API запиту
-                HttpWebRequest httpWebRequest = (HttpWebRequest)WebRequest.Create(url);//створенння API запиту
-                HttpWebResponse httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();// cтворення відповіді    
-                using (StreamReader streamReader = new StreamReader(httpWebResponse.GetResponseStream()))//зчитування відповіді
-                {
-                    response = streamReader.ReadToEnd();
-                }
-                WeatherResponse weatherResponse = JsonConvert.DeserializeObject<WeatherResponse>(response);
-
-                lblWeatherTemp.Content = "Avarage temp: " + weatherResponse.list[selector].Main.temp.ToString() + "°";
-                lblWeatherHumidity.Content = "Humidity: " + weatherResponse.list[selector].Main.humidity.ToString() + "%";
-                lblWeatherDescription.Content = weatherResponse.list[selector].weather[0].description.ToString();
-                lblWeatherWinds.Content = "Wind Speed: " + weatherResponse.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponse.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
-
-            }
-            catch
-            {
-                MessageBox.Show("Check input field:");
-            }
+            lblWeatherTemp.Content = forecast.temp;
+            lblWeatherHumidity.Content = forecast.humidity;
+            lblWeatherDescription.Content = forecast.description;
+            lblWeatherWinds.Content = forecast.winds;
+            currentTime.Text = forecast.date;
         }
-            private void btnGetWeather_Click(object sender, RoutedEventArgs e)
-            {
+        
+        
+        private void btnGetWeather_Click(object sender, RoutedEventArgs e)
+        {
             selector = 0;
-            GetWeather();
-            }
+            weatherForecast.GetWeather(txtCityInput.Text.ToString(), selector);
+            OutputContent(weatherForecast);
+        }
         
         private void SelectorPlus_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                selector++;
-                WeatherResponse weatherResponseSelectorsPlus = JsonConvert.DeserializeObject<WeatherResponse>(response);
-                lblWeatherTemp.Content = "Avarage temp: " + weatherResponseSelectorsPlus.list[selector].Main.temp.ToString() + "°";
-                lblWeatherHumidity.Content = "Humidity: " + weatherResponseSelectorsPlus.list[selector].Main.humidity.ToString() + "%";
-                lblWeatherDescription.Content = weatherResponseSelectorsPlus.list[selector].weather[0].description.ToString();
-                lblWeatherWinds.Content = "Wind Speed: " + weatherResponseSelectorsPlus.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponseSelectorsPlus.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
-            }
-            catch 
-            {
-                MessageBox.Show("Forecast was done only on 5 days");
-            }
+            selector++;
+            weatherForecast.NextDays(selector);
+            OutputContent(weatherForecast);
+
         }
 
         private void SelectorMinus_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                selector--;
-                WeatherResponse weatherResponseSelectorsMinus = JsonConvert.DeserializeObject<WeatherResponse>(response);
-                lblWeatherTemp.Content = "Avarage temp: " + weatherResponseSelectorsMinus.list[selector].Main.temp.ToString() + "°";
-                lblWeatherHumidity.Content = "Humidity: " + weatherResponseSelectorsMinus.list[selector].Main.humidity.ToString() + "%";
-                lblWeatherDescription.Content = weatherResponseSelectorsMinus.list[selector].weather[0].description.ToString();
-                lblWeatherWinds.Content = "Wind Speed: " + weatherResponseSelectorsMinus.list[selector].wind.speed.ToString() + "m/s";
-                currentTime.Text = weatherResponseSelectorsMinus.list[selector].dt_txt.ToString("F", new System.Globalization.CultureInfo("en-EN"));
-            }
-            catch
-            {
-                MessageBox.Show("Sorry we don't have forecast on previos days");
-            }
+            selector--;
+            weatherForecast.NextDays(selector);
+            OutputContent(weatherForecast);
         }
     }
-    } 
+} 
